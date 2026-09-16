@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>گزارش وضعیت فعالیت روزانه | سپهر</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+  <header class="brand">
+    <div class="logo">س</div>
+    <div><h1>گزارش وضعیت فعالیت روزانه</h1><p>سپهر</p></div>
+  </header>
+
+  <div class="warning">
+    <strong>لطفاً فعالیت‌های انجام‌شده در روز جاری را به‌صورت دقیق، کامل و به ترتیب زمانی ثبت نمایید.</strong>
+    <span><b>توجه:</b> عدم ثبت این فرم به منزله عدم انجام فعالیت در روز جاری تلقی خواهد شد.</span>
+  </div>
+
+  <form id="reportForm" autocomplete="off">
+    <section class="card">
+      <h2>اطلاعات گزارش</h2>
+      <div class="grid two">
+        <label>نام و نام خانوادگی
+          <input id="employeeName" required placeholder="نام و نام خانوادگی">
+        </label>
+        <label>واحد / دپارتمان
+          <select id="unitIndex" required>
+            <option value="">انتخاب واحد</option>
+            <option value="0">مارکتینگ</option>
+            <option value="1">مالی</option>
+            <option value="2">حقوقی</option>
+            <option value="3">دفتر مدیر عامل</option>
+            <option value="4">منابع انسانی</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head"><h2>گزارش وضعیت</h2><button type="button" id="addActivity" class="secondary">＋ فعالیت جدید</button></div>
+      <div id="activities"></div>
+    </section>
+
+    <div class="actions">
+      <button type="submit" id="submitBtn" class="primary">ثبت گزارش روزانه</button>
+      <div id="message" role="status"></div>
+    </div>
+  </form>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 /* آدرس Web App گوگل را اینجا قرار دهید */
-const GOOGLE_APPS_SCRIPT_URL = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE';
+const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzf80N18t6Fe5T5SQHNmDSaqUEzt9qBaTj2U4WNeESonhiqoJ00KfeF03MOY9C4lycd/exec';
 
 const activities = document.getElementById('activities');
 const form = document.getElementById('reportForm');

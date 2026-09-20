@@ -1,625 +1,611 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-
-<meta name="theme-color" content="#f7f1e7">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <meta name="theme-color" content="#f6f0e6">
+  <meta name="description" content="سامانه ثبت گزارش وضعیت فعالیت روزانه سپهر">
+
+  <title>گزارش وضعیت فعالیت روزانه | سپهر</title>
+
+  <style>
+    :root {
+      --bg: #f6f0e6;
+      --paper: #fffdf9;
+      --paper2: #fbf6ee;
+      --ink: #2d261f;
+      --muted: #766b60;
+      --gold: #b8872f;
+      --gold-dark: #8e6324;
+      --brown: #6c4b2d;
+      --line: #e4d7c5;
+      --ok: #28734b;
+      --danger: #a33a2b;
+      --warning: #8a641e;
+      --shadow: 0 16px 45px rgba(92, 65, 35, .12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      font-family:
+        Tahoma,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      color: var(--ink);
+
+      background:
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(184, 135, 47, .12),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 90% 80%,
+          rgba(108, 75, 45, .07),
+          transparent 28%
+        ),
+        linear-gradient(
+          135deg,
+          #faf7f0,
+          #efe5d5
+        );
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 1050px;
+      margin: auto;
+      padding: 24px 14px 50px;
+    }
+
+    /* ================================
+       HERO
+       ================================ */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+
+      padding: 22px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 253, 249, .98),
+          rgba(248, 239, 226, .97)
+        );
+
+      border: 1px solid var(--line);
+      border-radius: 26px;
+
+      box-shadow: var(--shadow);
+
+      animation: fadeUp .55s ease;
+    }
 
-<title>گزارش وضعیت فعالیت روزانه | سپهر</title>
+    .hero::before {
+      content: "";
 
-<style>
+      position: absolute;
+      inset: 0;
 
-:root{
-  --bg:#f6f0e6;
-  --paper:#fffdf9;
-  --paper2:#fbf6ee;
-  --ink:#2d261f;
-  --muted:#766b60;
-  --gold:#b8872f;
-  --gold2:#d5ad63;
-  --brown:#6c4b2d;
-  --line:#e4d7c5;
-  --ok:#28734b;
-  --danger:#a33a2b;
-  --shadow:0 16px 45px rgba(92,65,35,.12);
-}
+      pointer-events: none;
 
-*{
-  box-sizing:border-box;
-}
+      opacity: .18;
 
-body{
-  margin:0;
-  font-family:
-    Tahoma,
-    "Segoe UI",
-    Arial,
-    sans-serif;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent 0 3px,
+          rgba(108, 75, 45, .04) 4px 5px
+        );
+    }
 
-  color:var(--ink);
+    .brand {
+      position: relative;
+      z-index: 1;
 
-  background:
-    radial-gradient(
-      circle at 15% 10%,
-      rgba(184,135,47,.12),
-      transparent 25%
-    ),
-    linear-gradient(
-      135deg,
-      #faf7f0,
-      #efe5d5
-    );
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  min-height:100vh;
-}
+      gap: 18px;
+    }
 
-.wrap{
-  max-width:1050px;
-  margin:auto;
-  padding:24px 14px 50px;
-}
+    .logo {
+      width: 92px;
+      height: 92px;
 
-/* HERO */
+      object-fit: contain;
 
-.hero{
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,253,249,.97),
-      rgba(248,239,226,.97)
-    );
+      background: #fff;
 
-  border:1px solid var(--line);
+      border: 1px solid var(--line);
+      border-radius: 18px;
 
-  border-radius:26px;
+      padding: 7px;
 
-  box-shadow:var(--shadow);
+      flex-shrink: 0;
+    }
 
-  padding:20px;
+    .logo2 {
+      width: 76px;
+      height: 76px;
+    }
 
-  position:relative;
+    h1 {
+      margin: 0 0 7px;
 
-  overflow:hidden;
+      color: #3a2a1b;
 
-  animation:up .55s ease;
-}
+      font-size: 25px;
+      line-height: 1.5;
+    }
 
-.hero:before{
-  content:"";
+    .subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
 
-  position:absolute;
+    .notice {
+      position: relative;
+      z-index: 1;
 
-  inset:0;
+      margin-top: 18px;
 
-  pointer-events:none;
+      padding: 15px 17px;
 
-  opacity:.18;
+      background: #fff8df;
 
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 3px,
-      rgba(108,75,45,.04) 4px 5px
-    );
-}
+      border: 1px solid #ead29a;
+      border-right: 5px solid var(--gold);
+      border-radius: 15px;
 
-.brand{
-  display:flex;
+      font-size: 14px;
+      line-height: 2;
+    }
 
-  align-items:center;
+    /* ================================
+       CARDS
+       ================================ */
 
-  justify-content:center;
+    .card {
+      margin-top: 16px;
 
-  gap:18px;
+      padding: 18px;
 
-  position:relative;
+      background: rgba(255, 253, 249, .96);
 
-  z-index:1;
-}
+      border: 1px solid var(--line);
+      border-radius: 22px;
 
-.logo{
-  width:92px;
-  height:92px;
+      box-shadow:
+        0 10px 30px rgba(92, 65, 35, .08);
 
-  object-fit:contain;
+      animation: fadeUp .65s ease;
+    }
 
-  border-radius:18px;
+    .grid {
+      display: grid;
 
-  background:#fff;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
-  border:1px solid var(--line);
+      gap: 14px;
+    }
 
-  padding:7px;
-}
+    .field label {
+      display: block;
 
-.logo2{
-  width:76px;
-  height:76px;
-}
+      margin-bottom: 7px;
 
-h1{
-  font-size:25px;
+      font-size: 13px;
+      font-weight: 700;
+    }
 
-  margin:0 0 7px;
+    input,
+    select,
+    textarea {
+      width: 100%;
 
-  color:#3a2a1b;
-}
+      padding: 12px 13px;
 
-.subtitle{
-  color:var(--muted);
+      color: var(--ink);
 
-  font-size:13px;
-}
+      background: #fff;
 
-.notice{
-  margin-top:18px;
+      border: 1px solid #d8c9b5;
+      border-radius: 12px;
 
-  background:#fff8df;
+      outline: none;
 
-  border:1px solid #ead29a;
+      font-size: 14px;
 
-  border-right:5px solid var(--gold);
+      transition:
+        border-color .2s,
+        box-shadow .2s,
+        background .2s;
+    }
 
-  padding:15px 17px;
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--gold);
 
-  border-radius:15px;
+      box-shadow:
+        0 0 0 3px rgba(184, 135, 47, .12);
+    }
 
-  line-height:1.9;
+    input:disabled,
+    select:disabled,
+    textarea:disabled {
+      background: #f7f2ea;
+    }
 
-  font-size:14px;
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+      line-height: 1.9;
+    }
 
-  position:relative;
+    /* ================================
+       SECTION TITLE
+       ================================ */
 
-  z-index:1;
-}
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-/* CARD */
+      gap: 10px;
 
-.card{
-  margin-top:16px;
+      margin-bottom: 13px;
+    }
 
-  background:rgba(255,253,249,.96);
+    .section-title h2 {
+      margin: 0;
 
-  border:1px solid var(--line);
+      font-size: 17px;
+    }
 
-  border-radius:22px;
+    /* ================================
+       ACTIVITY
+       ================================ */
 
-  box-shadow:
-    0 10px 30px rgba(92,65,35,.08);
+    .activity {
+      position: relative;
 
-  padding:18px;
+      margin-top: 13px;
+      padding: 15px;
 
-  animation:up .65s ease;
-}
+      background: var(--paper2);
 
-.grid{
-  display:grid;
+      border: 1px solid var(--line);
+      border-radius: 18px;
 
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
+      animation: fadeUp .35s ease;
+    }
 
-  gap:14px;
-}
+    .activity-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-.field label{
-  display:block;
+      gap: 10px;
 
-  font-weight:700;
+      margin-bottom: 12px;
+    }
 
-  font-size:13px;
+    .badge {
+      padding: 6px 10px;
 
-  margin-bottom:7px;
-}
+      color: var(--brown);
 
-input,
-select,
-textarea{
+      background: #f0e1ca;
 
-  width:100%;
+      border-radius: 999px;
 
-  border:
-    1px solid #d8c9b5;
+      font-size: 12px;
+      font-weight: 800;
+    }
 
-  border-radius:12px;
+    .activity-grid {
+      display: grid;
 
-  background:#fff;
+      grid-template-columns:
+        2fr 1fr 1fr;
 
-  padding:12px 13px;
+      gap: 12px;
+    }
 
-  font:inherit;
+    .activity-grid .wide {
+      grid-column: span 3;
+    }
 
-  color:var(--ink);
+    /* ================================
+       BUTTONS
+       ================================ */
 
-  outline:none;
+    .actions {
+      display: flex;
 
-  transition:.2s;
-}
+      gap: 10px;
+      flex-wrap: wrap;
 
-input:focus,
-select:focus,
-textarea:focus{
+      margin-top: 16px;
+    }
 
-  border-color:var(--gold);
+    button {
+      border: 0;
+      border-radius: 13px;
 
-  box-shadow:
-    0 0 0 3px
-    rgba(184,135,47,.12);
-}
+      padding: 12px 18px;
 
-textarea{
-  min-height:92px;
+      font-size: 14px;
+      font-weight: 800;
 
-  resize:vertical;
-}
+      cursor: pointer;
 
-/* SECTION */
+      transition:
+        transform .15s,
+        box-shadow .15s,
+        opacity .15s;
+    }
 
-.section-title{
+    button:hover {
+      transform: translateY(-1px);
+    }
 
-  display:flex;
+    button:active {
+      transform: translateY(0);
+    }
 
-  align-items:center;
+    button:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
+    }
 
-  justify-content:space-between;
+    .primary {
+      color: #fff;
 
-  gap:10px;
+      background:
+        linear-gradient(
+          135deg,
+          var(--gold),
+          var(--gold-dark)
+        );
 
-  margin-bottom:13px;
-}
+      box-shadow:
+        0 9px 20px rgba(142, 99, 36, .22);
+    }
 
-.section-title h2{
+    .secondary {
+      color: #5b4027;
+      background: #f1e5d3;
+    }
 
-  font-size:17px;
+    .danger {
+      padding: 7px 12px;
 
-  margin:0;
-}
+      color: #9a3729;
 
-/* ACTIVITY */
+      background: #f7e2de;
 
-.activity{
+      font-size: 12px;
+    }
 
-  border:
-    1px solid var(--line);
+    /* ================================
+       MESSAGE
+       ================================ */
 
-  background:
-    var(--paper2);
+    #message {
+      display: none;
 
-  border-radius:18px;
+      margin-top: 14px;
+      padding: 13px 15px;
 
-  padding:15px;
+      border-radius: 13px;
 
-  margin-top:13px;
+      font-weight: 700;
+      line-height: 1.8;
+    }
 
-  position:relative;
+    #message.ok {
+      display: block;
 
-  animation:up .35s ease;
-}
+      color: #21633f;
 
-.activity-head{
+      background: #e5f4eb;
 
-  display:flex;
+      border: 1px solid #b9dec7;
+    }
 
-  align-items:center;
+    #message.err {
+      display: block;
 
-  justify-content:space-between;
+      color: #8c3025;
 
-  margin-bottom:12px;
-}
+      background: #fbe8e5;
 
-.badge{
+      border: 1px solid #efc2bb;
+    }
 
-  font-size:12px;
+    #message.warning {
+      display: block;
 
-  font-weight:800;
+      color: #74531b;
 
-  color:var(--brown);
+      background: #fff5d8;
 
-  background:#f0e1ca;
+      border: 1px solid #ead39a;
+    }
 
-  border-radius:999px;
+    /* ================================
+       SPINNER
+       ================================ */
 
-  padding:6px 10px;
-}
+    .spinner {
+      display: inline-block;
 
-.activity-grid{
+      width: 15px;
+      height: 15px;
 
-  display:grid;
+      margin-left: 7px;
 
-  grid-template-columns:
-    2fr 1fr 1fr;
+      vertical-align: -2px;
 
-  gap:12px;
-}
+      border: 2px solid rgba(255, 255, 255, .45);
+      border-top-color: #fff;
 
-.activity-grid .wide{
+      border-radius: 50%;
 
-  grid-column:
-    span 3;
-}
+      animation: spin .7s linear infinite;
+    }
 
-/* BUTTONS */
+    /* ================================
+       API STATUS
+       ================================ */
 
-.actions{
+    .api-status {
+      margin-top: 10px;
 
-  display:flex;
+      color: var(--muted);
 
-  gap:10px;
+      text-align: center;
 
-  flex-wrap:wrap;
+      font-size: 11px;
+    }
 
-  margin-top:16px;
-}
+    .api-dot {
+      display: inline-block;
 
-button{
+      width: 7px;
+      height: 7px;
 
-  border:0;
+      margin-left: 5px;
 
-  border-radius:13px;
+      background: #c49a4a;
 
-  padding:12px 18px;
+      border-radius: 50%;
+    }
 
-  font:inherit;
+    /* ================================
+       MOBILE
+       ================================ */
 
-  font-weight:800;
+    @media (max-width: 720px) {
 
-  cursor:pointer;
+      .wrap {
+        padding: 12px 10px 35px;
+      }
 
-  transition:
-    transform .15s,
-    box-shadow .15s,
-    opacity .15s;
-}
+      .hero {
+        padding: 15px;
+        border-radius: 20px;
+      }
 
-button:hover{
+      .brand {
+        gap: 10px;
+      }
 
-  transform:
-    translateY(-1px);
-}
+      .logo {
+        width: 68px;
+        height: 68px;
+      }
 
-button:disabled{
+      .logo2 {
+        width: 57px;
+        height: 57px;
+      }
 
-  opacity:.65;
+      h1 {
+        font-size: 20px;
+      }
 
-  cursor:not-allowed;
+      .subtitle {
+        font-size: 11px;
+      }
 
-  transform:none;
-}
+      .grid,
+      .activity-grid {
+        grid-template-columns: 1fr;
+      }
 
-.primary{
+      .activity-grid .wide {
+        grid-column: span 1;
+      }
 
-  background:
-    linear-gradient(
-      135deg,
-      #b8872f,
-      #8e6324
-    );
+      .card {
+        padding: 14px;
+        border-radius: 18px;
+      }
 
-  color:#fff;
+      .section-title {
+        align-items: flex-start;
+      }
 
-  box-shadow:
-    0 9px 20px
-    rgba(142,99,36,.22);
-}
+      .section-title button {
+        white-space: nowrap;
+      }
 
-.secondary{
+      .actions button {
+        width: 100%;
+      }
+    }
 
-  background:#f1e5d3;
+    /* ================================
+       ANIMATIONS
+       ================================ */
 
-  color:#5b4027;
-}
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
 
-.danger{
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
 
-  background:#f7e2de;
-
-  color:#9a3729;
-
-  padding:
-    7px 12px;
-
-  font-size:12px;
-}
-
-/* MESSAGE */
-
-#message{
-
-  display:none;
-
-  margin-top:14px;
-
-  padding:13px 15px;
-
-  border-radius:13px;
-
-  font-weight:700;
-
-  line-height:1.8;
-}
-
-#message.ok{
-
-  display:block;
-
-  background:#e5f4eb;
-
-  color:#21633f;
-
-  border:
-    1px solid #b9dec7;
-}
-
-#message.err{
-
-  display:block;
-
-  background:#fbe8e5;
-
-  color:#8c3025;
-
-  border:
-    1px solid #efc2bb;
-}
-
-/* SPINNER */
-
-.spinner{
-
-  display:inline-block;
-
-  width:15px;
-
-  height:15px;
-
-  border:
-    2px solid
-    rgba(255,255,255,.45);
-
-  border-top-color:#fff;
-
-  border-radius:50%;
-
-  animation:
-    spin .7s linear infinite;
-
-  vertical-align:-2px;
-
-  margin-left:7px;
-}
-
-/* FOOTER INFO */
-
-.api-status{
-
-  margin-top:10px;
-
-  font-size:11px;
-
-  color:var(--muted);
-
-  text-align:center;
-}
-
-/* MOBILE */
-
-@media(max-width:720px){
-
-  .wrap{
-
-    padding:
-      12px 10px 35px;
-  }
-
-  .hero{
-
-    border-radius:20px;
-
-    padding:15px;
-  }
-
-  .brand{
-
-    gap:10px;
-  }
-
-  .logo{
-
-    width:68px;
-
-    height:68px;
-  }
-
-  .logo2{
-
-    width:57px;
-
-    height:57px;
-  }
-
-  h1{
-
-    font-size:20px;
-  }
-
-  .subtitle{
-
-    font-size:11px;
-  }
-
-  .grid,
-  .activity-grid{
-
-    grid-template-columns:1fr;
-  }
-
-  .activity-grid .wide{
-
-    grid-column:
-      span 1;
-  }
-
-  .card{
-
-    border-radius:18px;
-
-    padding:14px;
-  }
-
-  .section-title{
-
-    align-items:flex-start;
-  }
-
-  .section-title button{
-
-    white-space:nowrap;
-  }
-
-  .actions button{
-
-    width:100%;
-  }
-}
-
-/* ANIMATION */
-
-@keyframes up{
-
-  from{
-
-    opacity:0;
-
-    transform:
-      translateY(10px);
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:none;
-  }
-}
-
-@keyframes spin{
-
-  to{
-
-    transform:
-      rotate(360deg);
-  }
-}
-
-</style>
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
 <div class="wrap">
 
-  <!-- HEADER -->
+  <!-- ================================
+       HEADER
+       ================================ -->
 
   <header class="hero">
 
@@ -627,7 +613,6 @@ button:disabled{
 
       <img
         class="logo"
-        id="logo1Box"
         src="./logo.png"
         alt="لوگوی سپهر"
         onerror="this.style.display='none'"
@@ -647,14 +632,12 @@ button:disabled{
 
       <img
         class="logo logo2"
-        id="logo2Box"
         src="./logo2.png"
         alt="لوگوی سپهر"
         onerror="this.style.display='none'"
       >
 
     </div>
-
 
     <div class="notice">
 
@@ -679,7 +662,9 @@ button:disabled{
   </header>
 
 
-  <!-- FORM -->
+  <!-- ================================
+       FORM
+       ================================ -->
 
   <form
     id="reportForm"
@@ -759,7 +744,7 @@ button:disabled{
       <div class="section-title">
 
         <h2>
-          گزارش وضعیت
+          گزارش وضعیت فعالیت‌ها
         </h2>
 
         <button
@@ -793,6 +778,7 @@ button:disabled{
 
 
       <div class="api-status">
+        <span class="api-dot"></span>
         اتصال فرم به سامانه ثبت گزارش سپهر
       </div>
 
@@ -806,46 +792,64 @@ button:disabled{
 <script>
 
 /* =========================================================
-   GOOGLE APPS SCRIPT WEB APP
+   CONFIGURATION
    ========================================================= */
+
+/*
+ * Google Apps Script Web App
+ *
+ * این URL باید همان Deployment فعلی Code.gs باشد.
+ */
 
 const GOOGLE_APPS_SCRIPT_URL =
   'https://script.google.com/macros/s/AKfycbymcEOkxod2e0iTewyug7MF49kmLqHg8b1Ps06C6Gtkmh1M_5ztgxnYw-qa3OU6Gcrj/exec';
+
+
+/*
+ * نسخه Frontend
+ */
+
+const FRONTEND_VERSION = '12.0.0';
 
 
 /* =========================================================
    DOM
    ========================================================= */
 
-const activities =
+const activitiesContainer =
   document.getElementById('activities');
 
 const form =
   document.getElementById('reportForm');
 
-const msg =
+const messageBox =
   document.getElementById('message');
 
 const submitBtn =
   document.getElementById('submitBtn');
+
+const addBtn =
+  document.getElementById('addBtn');
+
+const unitInput =
+  document.getElementById('unit');
+
+const employeeInput =
+  document.getElementById('employee');
 
 
 /* =========================================================
    JALALI DATE
    ========================================================= */
 
-function pad(n){
+function pad(number) {
 
-  return String(n).padStart(2,'0');
+  return String(number).padStart(2, '0');
 
 }
 
 
-function gregorianToJalali(
-  gy,
-  gm,
-  gd
-){
+function gregorianToJalali(gy, gm, gd) {
 
   const gdm = [
     0,
@@ -878,36 +882,29 @@ function gregorianToJalali(
 
   let jy =
     -1595 +
-    33 * Math.floor(
-      days / 12053
-    );
+    33 * Math.floor(days / 12053);
 
   days %= 12053;
 
   jy +=
-    4 * Math.floor(
-      days / 1461
-    );
+    4 * Math.floor(days / 1461);
 
   days %= 1461;
 
-  if(days > 365){
+  if (days > 365) {
 
     jy +=
-      Math.floor(
-        (days - 1) / 365
-      );
+      Math.floor((days - 1) / 365);
 
     days =
       (days - 1) % 365;
+
   }
 
   const jm =
     days < 186
       ? 1 + Math.floor(days / 31)
-      : 7 + Math.floor(
-          (days - 186) / 30
-        );
+      : 7 + Math.floor((days - 186) / 30);
 
   const jd =
     1 +
@@ -922,15 +919,15 @@ function gregorianToJalali(
 }
 
 
-function todayJalali(){
+function todayJalali() {
 
-  const d =
+  const now =
     new Date();
 
   return gregorianToJalali(
-    d.getFullYear(),
-    d.getMonth() + 1,
-    d.getDate()
+    now.getFullYear(),
+    now.getMonth() + 1,
+    now.getDate()
   );
 
 }
@@ -940,24 +937,60 @@ function todayJalali(){
    MESSAGE
    ========================================================= */
 
-function showMsg(
-  text,
-  type
-){
+function showMessage(text, type = 'err') {
 
-  msg.textContent =
+  messageBox.textContent =
     text;
 
-  msg.className = '';
+  messageBox.className =
+    '';
 
-  msg.classList.add(
-    type === 'ok'
-      ? 'ok'
-      : 'err'
-  );
+  messageBox.classList.add(type);
 
-  msg.style.display =
+  messageBox.style.display =
     'block';
+
+}
+
+
+function hideMessage() {
+
+  messageBox.textContent =
+    '';
+
+  messageBox.className =
+    '';
+
+  messageBox.style.display =
+    'none';
+
+}
+
+
+/* =========================================================
+   ACTIVITY NUMBER
+   ========================================================= */
+
+function updateActivityNumbers() {
+
+  const cards =
+    document.querySelectorAll('.activity');
+
+  cards.forEach(
+    function(card, index) {
+
+      const badge =
+        card.querySelector('.badge');
+
+      if (badge) {
+
+        badge.textContent =
+          `فعالیت ${index + 1}`;
+
+      }
+
+    }
+  );
 
 }
 
@@ -966,21 +999,20 @@ function showMsg(
    ADD ACTIVITY
    ========================================================= */
 
-function addActivity(){
+function addActivity() {
 
-  const el =
+  const activity =
     document.createElement('div');
 
-  el.className =
+  activity.className =
     'activity';
 
-
-  el.innerHTML = `
+  activity.innerHTML = `
 
     <div class="activity-head">
 
       <span class="badge">
-        فعالیت
+        فعالیت 1
       </span>
 
       <button
@@ -996,6 +1028,8 @@ function addActivity(){
     <div class="activity-grid">
 
 
+      <!-- DESCRIPTION -->
+
       <div class="field wide">
 
         <label>
@@ -1010,6 +1044,8 @@ function addActivity(){
 
       </div>
 
+
+      <!-- STATUS -->
 
       <div class="field">
 
@@ -1047,6 +1083,8 @@ function addActivity(){
       </div>
 
 
+      <!-- PROGRESS -->
+
       <div class="field">
 
         <label>
@@ -1066,6 +1104,8 @@ function addActivity(){
       </div>
 
 
+      <!-- DATE -->
+
       <div class="field">
 
         <label>
@@ -1076,10 +1116,14 @@ function addActivity(){
           class="date"
           value="${todayJalali()}"
           required
+          inputmode="numeric"
+          placeholder="1405/06/29"
         >
 
       </div>
 
+
+      <!-- DOCUMENT -->
 
       <div class="field">
 
@@ -1094,6 +1138,8 @@ function addActivity(){
 
       </div>
 
+
+      <!-- RESPONSIBLE -->
 
       <div class="field">
 
@@ -1110,6 +1156,8 @@ function addActivity(){
       </div>
 
 
+      <!-- NEXT ACTION -->
+
       <div class="field">
 
         <label>
@@ -1124,6 +1172,8 @@ function addActivity(){
 
       </div>
 
+
+      <!-- NOTES -->
 
       <div class="field wide">
 
@@ -1143,42 +1193,431 @@ function addActivity(){
   `;
 
 
-  activities.appendChild(el);
+  activitiesContainer.appendChild(
+    activity
+  );
 
 
-  el.querySelector('.remove')
-    .onclick = () => {
+  const removeButton =
+    activity.querySelector('.remove');
 
-      if(
-        activities.children.length > 1
-      ){
 
-        el.remove();
+  removeButton.addEventListener(
+    'click',
+    function() {
 
-      }else{
+      const count =
+        activitiesContainer.children.length;
 
-        showMsg(
+      if (count <= 1) {
+
+        showMessage(
           'حداقل یک فعالیت باید ثبت شود.',
           'err'
         );
 
+        return;
+
       }
 
-    };
+      activity.remove();
+
+      updateActivityNumbers();
+
+      hideMessage();
+
+    }
+  );
+
+
+  /*
+   * اگر وضعیت متوقف یا در انتظار تأیید شد،
+   * توضیحات به صورت بصری مشخص می‌شود.
+   */
+
+  const status =
+    activity.querySelector('.status');
+
+  const notes =
+    activity.querySelector('.notes');
+
+  status.addEventListener(
+    'change',
+    function() {
+
+      const requiresNotes =
+        status.value === 'متوقف شده' ||
+        status.value === 'در انتظار تأیید';
+
+      if (requiresNotes) {
+
+        notes.style.borderColor =
+          '#b8872f';
+
+        notes.placeholder =
+          'برای این وضعیت، توضیح مانع یا دلیل انتظار تأیید الزامی است.';
+
+      } else {
+
+        notes.style.borderColor =
+          '';
+
+        notes.placeholder =
+          'در صورت توقف یا انتظار تأیید، توضیح مانع یا وضعیت را وارد کنید.';
+
+      }
+
+    }
+  );
+
+
+  updateActivityNumbers();
 
 }
 
 
-/* اولین فعالیت */
+/* =========================================================
+   INITIAL ACTIVITY
+   ========================================================= */
 
 addActivity();
 
 
-/* دکمه افزودن */
+/* =========================================================
+   ADD BUTTON
+   ========================================================= */
 
-document
-  .getElementById('addBtn')
-  .onclick = addActivity;
+addBtn.addEventListener(
+  'click',
+  function() {
+
+    addActivity();
+
+    const cards =
+      document.querySelectorAll('.activity');
+
+    const last =
+      cards[cards.length - 1];
+
+    if (last) {
+
+      last.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   COLLECT ACTIVITY
+   ========================================================= */
+
+function collectActivities() {
+
+  const cards =
+    [
+      ...document.querySelectorAll('.activity')
+    ];
+
+  const result = [];
+
+
+  for (
+    let index = 0;
+    index < cards.length;
+    index++
+  ) {
+
+    const card =
+      cards[index];
+
+
+    const description =
+      card
+        .querySelector('.description')
+        .value
+        .trim();
+
+
+    const status =
+      card
+        .querySelector('.status')
+        .value;
+
+
+    const progressValue =
+      card
+        .querySelector('.progress')
+        .value;
+
+
+    const date =
+      card
+        .querySelector('.date')
+        .value
+        .trim();
+
+
+    const documentValue =
+      card
+        .querySelector('.document')
+        .value
+        .trim();
+
+
+    const responsible =
+      card
+        .querySelector('.responsible')
+        .value
+        .trim();
+
+
+    const nextAction =
+      card
+        .querySelector('.nextAction')
+        .value
+        .trim();
+
+
+    const notes =
+      card
+        .querySelector('.notes')
+        .value
+        .trim();
+
+
+    /*
+     * اعتبارسنجی اختصاصی
+     */
+
+    if (!description) {
+
+      throw new Error(
+        `شرح فعالیت ${index + 1} وارد نشده است.`
+      );
+
+    }
+
+
+    if (!status) {
+
+      throw new Error(
+        `وضعیت فعالیت ${index + 1} انتخاب نشده است.`
+      );
+
+    }
+
+
+    const progress =
+      Number(progressValue);
+
+
+    if (
+      !Number.isFinite(progress) ||
+      progress < 0 ||
+      progress > 100
+    ) {
+
+      throw new Error(
+        `درصد پیشرفت فعالیت ${index + 1} باید بین ۰ تا ۱۰۰ باشد.`
+      );
+
+    }
+
+
+    if (!date) {
+
+      throw new Error(
+        `تاریخ فعالیت ${index + 1} وارد نشده است.`
+      );
+
+    }
+
+
+    if (!responsible) {
+
+      throw new Error(
+        `مسئول فعالیت ${index + 1} وارد نشده است.`
+      );
+
+    }
+
+
+    if (!nextAction) {
+
+      throw new Error(
+        `اقدام بعدی فعالیت ${index + 1} وارد نشده است.`
+      );
+
+    }
+
+
+    /*
+     * توضیحات برای وضعیت‌های خاص اجباری است.
+     */
+
+    if (
+      (
+        status === 'متوقف شده' ||
+        status === 'در انتظار تأیید'
+      ) &&
+      !notes
+    ) {
+
+      throw new Error(
+        `برای فعالیت ${index + 1} با وضعیت «${status}»، توضیحات و موانع الزامی است.`
+      );
+
+    }
+
+
+    /*
+     * ساخت آبجکت دقیقاً مطابق Code.gs
+     */
+
+    result.push({
+
+      description:
+        description,
+
+      status:
+        status,
+
+      progress:
+        progress,
+
+      date:
+        date,
+
+      document:
+        documentValue,
+
+      responsible:
+        responsible,
+
+      nextAction:
+        nextAction,
+
+      notes:
+        notes
+
+    });
+
+  }
+
+
+  return result;
+
+}
+
+
+/* =========================================================
+   BUILD PAYLOAD
+   ========================================================= */
+
+function buildPayload() {
+
+  const unitValue =
+    unitInput.value;
+
+
+  const employee =
+    employeeInput.value.trim();
+
+
+  if (!unitValue) {
+
+    throw new Error(
+      'لطفاً واحد / دپارتمان را انتخاب کنید.'
+    );
+
+  }
+
+
+  if (!employee) {
+
+    throw new Error(
+      'لطفاً نام و نام خانوادگی را وارد کنید.'
+    );
+
+  }
+
+
+  const unitIndex =
+    Number(unitValue);
+
+
+  if (
+    !Number.isInteger(unitIndex) ||
+    unitIndex < 0 ||
+    unitIndex > 4
+  ) {
+
+    throw new Error(
+      'واحد انتخاب‌شده معتبر نیست.'
+    );
+
+  }
+
+
+  const activityList =
+    collectActivities();
+
+
+  if (
+    activityList.length === 0
+  ) {
+
+    throw new Error(
+      'حداقل یک فعالیت باید ثبت شود.'
+    );
+
+  }
+
+
+  /*
+   * این دقیقاً همان ساختاری است
+   * که Code.gs انتظار دارد.
+   */
+
+  return {
+
+    unitIndex:
+      unitIndex,
+
+    employee:
+      employee,
+
+    activities:
+      activityList
+
+  };
+
+}
+
+
+/* =========================================================
+   RESET FORM
+   ========================================================= */
+
+function resetForm() {
+
+  unitInput.value =
+    '';
+
+  employeeInput.value =
+    '';
+
+  activitiesContainer.innerHTML =
+    '';
+
+  addActivity();
+
+}
 
 
 /* =========================================================
@@ -1187,169 +1626,86 @@ document
 
 form.addEventListener(
   'submit',
-  async function(e){
+  async function(event) {
 
-    e.preventDefault();
-
-
-    msg.style.display =
-      'none';
+    event.preventDefault();
 
 
-    /* اعتبارسنجی HTML */
+    hideMessage();
 
-    if(
+
+    /*
+     * اعتبارسنجی HTML
+     */
+
+    if (
       !form.reportValidity()
-    ){
+    ) {
 
       return;
 
     }
 
 
-    const unitIndex =
-      document
-        .getElementById('unit')
-        .value;
+    let payload;
 
 
-    const employee =
-      document
-        .getElementById('employee')
-        .value
-        .trim();
+    /*
+     * ساخت Payload
+     */
 
+    try {
 
-    const cards =
-      [
-        ...document.querySelectorAll(
-          '.activity'
-        )
-      ];
+      payload =
+        buildPayload();
 
+    } catch (error) {
 
-    const data = {
+      showMessage(
+        error.message ||
+        'اطلاعات فرم کامل نیست.',
+        'err'
+      );
 
-      unitIndex:
-        Number(unitIndex),
-
-      employee:
-        employee,
-
-      activities:
-        []
-
-    };
-
-
-    /* جمع‌آوری فعالیت‌ها */
-
-    for(
-      const c of cards
-    ){
-
-      const status =
-        c
-          .querySelector('.status')
-          .value;
-
-
-      const notes =
-        c
-          .querySelector('.notes')
-          .value
-          .trim();
-
-
-      /* توضیح اجباری برای وضعیت‌های خاص */
-
-      if(
-        (
-          status === 'متوقف شده' ||
-          status === 'در انتظار تأیید'
-        ) &&
-        !notes
-      ){
-
-        showMsg(
-          'برای فعالیت متوقف‌شده یا در انتظار تأیید، توضیحات و موانع را وارد کنید.',
-          'err'
-        );
-
-        return;
-
-      }
-
-
-      data.activities.push({
-
-        description:
-          c
-            .querySelector('.description')
-            .value
-            .trim(),
-
-        status:
-          status,
-
-        progress:
-          Number(
-            c
-              .querySelector('.progress')
-              .value || 0
-          ),
-
-        date:
-          c
-            .querySelector('.date')
-            .value
-            .trim(),
-
-        document:
-          c
-            .querySelector('.document')
-            .value
-            .trim(),
-
-        responsible:
-          c
-            .querySelector('.responsible')
-            .value
-            .trim(),
-
-        nextAction:
-          c
-            .querySelector('.nextAction')
-            .value
-            .trim(),
-
-        notes:
-          notes
-
-      });
+      return;
 
     }
 
 
-    /* =====================================================
-       ارسال به Google Apps Script
-       ===================================================== */
+    /*
+     * جلوگیری از ارسال همزمان
+     */
 
     submitBtn.disabled =
       true;
 
+    addBtn.disabled =
+      true;
+
+
     submitBtn.innerHTML =
-      '<span class="spinner"></span>در حال ثبت...';
+      '<span class="spinner"></span>در حال ثبت گزارش...';
 
 
-    try{
+    try {
 
       /*
-       * no-cors:
+       * ===================================================
+       * POST TO GOOGLE APPS SCRIPT
+       * ===================================================
        *
-       * GitHub Pages مستقیماً به Apps Script وصل می‌شود.
-       * مرورگر پاسخ Apps Script را در اختیار JS قرار نمی‌دهد،
-       * اما درخواست POST ارسال می‌شود.
+       * توجه:
+       *
+       * mode = no-cors
+       *
+       * باعث می‌شود مرورگر پاسخ Apps Script را
+       * در اختیار JavaScript قرار ندهد.
+       *
+       * اما POST به Web App ارسال می‌شود.
+       *
+       * Content-Type = text/plain
+       * عمداً استفاده شده تا preflight پیچیده CORS
+       * ایجاد نشود.
        */
 
       await fetch(
@@ -1362,64 +1718,73 @@ form.addEventListener(
           mode:
             'no-cors',
 
-          headers:{
+          headers: {
+
             'Content-Type':
               'text/plain;charset=UTF-8'
+
           },
 
           body:
-            JSON.stringify(data)
+            JSON.stringify(payload)
 
         }
       );
 
 
-      /* نمایش موفقیت */
+      /*
+       * چون no-cors است، اینجا فقط می‌دانیم
+       * fetch بدون خطای شبکه Promise را کامل کرده است.
+       *
+       * پاسخ واقعی سرور قابل خواندن نیست.
+       */
 
-      showMsg(
-        'گزارش با موفقیت ارسال شد و برای ثبت در سامانه ارسال گردید.',
+      showMessage(
+        `گزارش ${payload.activities.length} فعالیت با موفقیت برای سامانه ارسال شد.`,
         'ok'
       );
 
 
-      /* پاک کردن فرم */
+      /*
+       * پاک کردن فرم
+       */
 
-      document
-        .getElementById('unit')
-        .value = '';
+      resetForm();
 
-      document
-        .getElementById('employee')
-        .value = '';
 
-      activities.innerHTML = '';
-
-      addActivity();
-
+      /*
+       * رفتن به بالای صفحه
+       */
 
       window.scrollTo({
-        top:0,
-        behavior:'smooth'
+
+        top: 0,
+
+        behavior: 'smooth'
+
       });
 
 
-    }catch(error){
+    } catch (error) {
 
       console.error(
-        'Submit Error:',
+        'SepehrReport Submit Error:',
         error
       );
 
 
-      showMsg(
-        'ارسال گزارش انجام نشد. اتصال اینترنت و آدرس Web App را بررسی کنید.',
+      showMessage(
+        'ارسال گزارش انجام نشد. اتصال اینترنت یا آدرس Google Apps Script را بررسی کنید.',
         'err'
       );
 
 
-    }finally{
+    } finally {
 
       submitBtn.disabled =
+        false;
+
+      addBtn.disabled =
         false;
 
       submitBtn.textContent =
@@ -1428,6 +1793,21 @@ form.addEventListener(
     }
 
   }
+);
+
+
+/* =========================================================
+   DEBUG
+   ========================================================= */
+
+console.log(
+  'SepehrReport Frontend',
+  FRONTEND_VERSION
+);
+
+console.log(
+  'Apps Script URL:',
+  GOOGLE_APPS_SCRIPT_URL
 );
 
 </script>

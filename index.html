@@ -1,599 +1,356 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
-  <meta name="theme-color" content="#f6f0e6">
-  <meta name="description" content="سامانه ثبت گزارش وضعیت فعالیت روزانه سپهر">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>گزارش وضعیت فعالیت روزانه | سپهر</title>
 
   <style>
-    :root {
-      --bg: #f6f0e6;
-      --paper: #fffdf9;
-      --paper2: #fbf6ee;
-      --ink: #2d261f;
-      --muted: #766b60;
-      --gold: #b8872f;
-      --gold-dark: #8e6324;
-      --brown: #6c4b2d;
-      --line: #e4d7c5;
-      --ok: #28734b;
-      --danger: #a33a2b;
-      --warning: #8a641e;
-      --shadow: 0 16px 45px rgba(92, 65, 35, .12);
-    }
-
     * {
       box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
-
-      font-family:
-        Tahoma,
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
-      color: var(--ink);
-
+      font-family: Tahoma, Arial, sans-serif;
       background:
-        radial-gradient(
-          circle at 15% 10%,
-          rgba(184, 135, 47, .12),
-          transparent 25%
-        ),
-        radial-gradient(
-          circle at 90% 80%,
-          rgba(108, 75, 45, .07),
-          transparent 28%
-        ),
-        linear-gradient(
-          135deg,
-          #faf7f0,
-          #efe5d5
-        );
+        radial-gradient(circle at top right, rgba(191, 151, 58, 0.10), transparent 35%),
+        linear-gradient(135deg, #f8f5ee 0%, #f3efe5 100%);
+      color: #1d2b3a;
     }
 
-    button,
-    input,
-    select,
-    textarea {
-      font-family: inherit;
+    .container {
+      width: min(1100px, calc(100% - 32px));
+      margin: 40px auto;
     }
 
-    .wrap {
-      width: 100%;
-      max-width: 1050px;
-      margin: auto;
-      padding: 24px 14px 50px;
-    }
-
-    /* ================================
-       HERO
-       ================================ */
-
-    .hero {
+    .header {
+      background: linear-gradient(135deg, #17283a, #253c53);
+      color: white;
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 18px 45px rgba(23, 40, 58, 0.18);
+      margin-bottom: 24px;
       position: relative;
       overflow: hidden;
-
-      padding: 22px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 253, 249, .98),
-          rgba(248, 239, 226, .97)
-        );
-
-      border: 1px solid var(--line);
-      border-radius: 26px;
-
-      box-shadow: var(--shadow);
-
-      animation: fadeUp .55s ease;
     }
 
-    .hero::before {
+    .header::after {
       content: "";
-
       position: absolute;
-      inset: 0;
-
-      pointer-events: none;
-
-      opacity: .18;
-
-      background-image:
-        repeating-linear-gradient(
-          0deg,
-          transparent 0 3px,
-          rgba(108, 75, 45, .04) 4px 5px
-        );
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(207, 169, 78, 0.10);
+      left: -80px;
+      top: -100px;
     }
 
-    .brand {
+    .header h1 {
+      margin: 0 0 10px;
+      font-size: 28px;
+      font-weight: 800;
       position: relative;
       z-index: 1;
+    }
 
+    .header p {
+      margin: 0;
+      color: #e8edf2;
+      font-size: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .gold-line {
+      width: 80px;
+      height: 4px;
+      border-radius: 10px;
+      background: #c9a34f;
+      margin: 18px 0 0;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(201, 163, 79, 0.22);
+      border-radius: 22px;
+      padding: 26px;
+      margin-bottom: 22px;
+      box-shadow: 0 12px 35px rgba(30, 45, 60, 0.08);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 22px;
+      color: #17283a;
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .section-title span {
+      width: 34px;
+      height: 34px;
       display: flex;
       align-items: center;
       justify-content: center;
+      background: #f5ead0;
+      color: #a77d20;
+      border-radius: 10px;
+      font-size: 17px;
+    }
 
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 18px;
     }
 
-    .logo {
-      width: 92px;
-      height: 92px;
-
-      object-fit: contain;
-
-      background: #fff;
-
-      border: 1px solid var(--line);
-      border-radius: 18px;
-
-      padding: 7px;
-
-      flex-shrink: 0;
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .logo2 {
-      width: 76px;
-      height: 76px;
+    .field.full {
+      grid-column: 1 / -1;
     }
 
-    h1 {
-      margin: 0 0 7px;
-
-      color: #3a2a1b;
-
-      font-size: 25px;
-      line-height: 1.5;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.8;
-    }
-
-    .notice {
-      position: relative;
-      z-index: 1;
-
-      margin-top: 18px;
-
-      padding: 15px 17px;
-
-      background: #fff8df;
-
-      border: 1px solid #ead29a;
-      border-right: 5px solid var(--gold);
-      border-radius: 15px;
-
+    label {
       font-size: 14px;
-      line-height: 2;
-    }
-
-    /* ================================
-       CARDS
-       ================================ */
-
-    .card {
-      margin-top: 16px;
-
-      padding: 18px;
-
-      background: rgba(255, 253, 249, .96);
-
-      border: 1px solid var(--line);
-      border-radius: 22px;
-
-      box-shadow:
-        0 10px 30px rgba(92, 65, 35, .08);
-
-      animation: fadeUp .65s ease;
-    }
-
-    .grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-      gap: 14px;
-    }
-
-    .field label {
-      display: block;
-
-      margin-bottom: 7px;
-
-      font-size: 13px;
       font-weight: 700;
+      color: #394b5e;
     }
 
     input,
     select,
     textarea {
       width: 100%;
-
-      padding: 12px 13px;
-
-      color: var(--ink);
-
-      background: #fff;
-
-      border: 1px solid #d8c9b5;
+      border: 1px solid #d9dfe5;
       border-radius: 12px;
-
-      outline: none;
-
+      padding: 13px 14px;
+      font-family: inherit;
       font-size: 14px;
-
-      transition:
-        border-color .2s,
-        box-shadow .2s,
-        background .2s;
+      color: #243447;
+      background: #fff;
+      outline: none;
+      transition: all 0.2s ease;
     }
 
     input:focus,
     select:focus,
     textarea:focus {
-      border-color: var(--gold);
-
-      box-shadow:
-        0 0 0 3px rgba(184, 135, 47, .12);
-    }
-
-    input:disabled,
-    select:disabled,
-    textarea:disabled {
-      background: #f7f2ea;
+      border-color: #c9a34f;
+      box-shadow: 0 0 0 4px rgba(201, 163, 79, 0.10);
     }
 
     textarea {
-      min-height: 92px;
       resize: vertical;
-      line-height: 1.9;
+      min-height: 90px;
     }
 
-    /* ================================
-       SECTION TITLE
-       ================================ */
-
-    .section-title {
+    .activities {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 10px;
-
-      margin-bottom: 13px;
+      flex-direction: column;
+      gap: 18px;
     }
-
-    .section-title h2 {
-      margin: 0;
-
-      font-size: 17px;
-    }
-
-    /* ================================
-       ACTIVITY
-       ================================ */
 
     .activity {
-      position: relative;
-
-      margin-top: 13px;
-      padding: 15px;
-
-      background: var(--paper2);
-
-      border: 1px solid var(--line);
+      border: 1px solid #e0e4e8;
       border-radius: 18px;
-
-      animation: fadeUp .35s ease;
+      padding: 20px;
+      background: #fcfcfb;
+      position: relative;
     }
 
-    .activity-head {
+    .activity-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-
+      align-items: center;
+      margin-bottom: 18px;
       gap: 10px;
-
-      margin-bottom: 12px;
     }
 
-    .badge {
-      padding: 6px 10px;
-
-      color: var(--brown);
-
-      background: #f0e1ca;
-
-      border-radius: 999px;
-
-      font-size: 12px;
+    .activity-number {
       font-weight: 800;
+      color: #17283a;
+      font-size: 16px;
+    }
+
+    .remove-btn {
+      border: none;
+      background: #f8e7e7;
+      color: #a33b3b;
+      padding: 8px 12px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 700;
+    }
+
+    .remove-btn:hover {
+      background: #f2d3d3;
     }
 
     .activity-grid {
       display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
 
-      grid-template-columns:
-        2fr 1fr 1fr;
+    .activity-grid .full {
+      grid-column: 1 / -1;
+    }
 
+    .progress-wrapper {
+      display: flex;
+      align-items: center;
       gap: 12px;
     }
 
-    .activity-grid .wide {
-      grid-column: span 3;
+    .progress-wrapper input[type="range"] {
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      accent-color: #b38b32;
     }
 
-    /* ================================
-       BUTTONS
-       ================================ */
-
-    .actions {
-      display: flex;
-
-      gap: 10px;
-      flex-wrap: wrap;
-
-      margin-top: 16px;
+    .progress-value {
+      min-width: 50px;
+      text-align: center;
+      background: #f4ead1;
+      color: #8a681d;
+      padding: 7px 9px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 13px;
     }
 
-    button {
-      border: 0;
+    .add-btn {
+      width: 100%;
+      border: 2px dashed #c9a34f;
+      background: #fffaf0;
+      color: #8a681d;
       border-radius: 13px;
-
-      padding: 12px 18px;
-
+      padding: 13px;
+      font-family: inherit;
       font-size: 14px;
       font-weight: 800;
-
       cursor: pointer;
-
-      transition:
-        transform .15s,
-        box-shadow .15s,
-        opacity .15s;
+      margin-top: 18px;
     }
 
-    button:hover {
-      transform: translateY(-1px);
+    .add-btn:hover {
+      background: #fff5dd;
     }
 
-    button:active {
-      transform: translateY(0);
+    .submit-area {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
     }
 
-    button:disabled {
-      opacity: .65;
+    .submit-btn {
+      border: none;
+      border-radius: 14px;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #b88c32, #d2ad5b);
+      color: white;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(184, 140, 50, 0.22);
+      transition: all 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 13px 26px rgba(184, 140, 50, 0.28);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
       cursor: not-allowed;
       transform: none;
     }
 
-    .primary {
-      color: #fff;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--gold),
-          var(--gold-dark)
-        );
-
-      box-shadow:
-        0 9px 20px rgba(142, 99, 36, .22);
-    }
-
-    .secondary {
-      color: #5b4027;
-      background: #f1e5d3;
-    }
-
-    .danger {
-      padding: 7px 12px;
-
-      color: #9a3729;
-
-      background: #f7e2de;
-
-      font-size: 12px;
-    }
-
-    /* ================================
-       MESSAGE
-       ================================ */
-
-    #message {
+    .status-message {
       display: none;
-
-      margin-top: 14px;
-      padding: 13px 15px;
-
-      border-radius: 13px;
-
+      padding: 13px 16px;
+      border-radius: 12px;
+      font-size: 14px;
       font-weight: 700;
-      line-height: 1.8;
     }
 
-    #message.ok {
+    .status-message.success {
       display: block;
-
-      color: #21633f;
-
-      background: #e5f4eb;
-
-      border: 1px solid #b9dec7;
+      background: #e8f6ec;
+      color: #24703b;
+      border: 1px solid #bde5c8;
     }
 
-    #message.err {
+    .status-message.error {
       display: block;
-
-      color: #8c3025;
-
-      background: #fbe8e5;
-
-      border: 1px solid #efc2bb;
+      background: #fff0f0;
+      color: #9b3030;
+      border: 1px solid #efc4c4;
     }
 
-    #message.warning {
+    .status-message.loading {
       display: block;
-
-      color: #74531b;
-
-      background: #fff5d8;
-
-      border: 1px solid #ead39a;
+      background: #f1f5f9;
+      color: #425466;
+      border: 1px solid #d9e0e7;
     }
 
-    /* ================================
-       SPINNER
-       ================================ */
-
-    .spinner {
-      display: inline-block;
-
-      width: 15px;
-      height: 15px;
-
-      margin-left: 7px;
-
-      vertical-align: -2px;
-
-      border: 2px solid rgba(255, 255, 255, .45);
-      border-top-color: #fff;
-
-      border-radius: 50%;
-
-      animation: spin .7s linear infinite;
-    }
-
-    /* ================================
-       API STATUS
-       ================================ */
-
-    .api-status {
-      margin-top: 10px;
-
-      color: var(--muted);
-
+    .footer {
       text-align: center;
-
-      font-size: 11px;
+      color: #7a8794;
+      font-size: 12px;
+      padding: 10px 0 30px;
     }
 
-    .api-dot {
-      display: inline-block;
-
-      width: 7px;
-      height: 7px;
-
-      margin-left: 5px;
-
-      background: #c49a4a;
-
-      border-radius: 50%;
-    }
-
-    /* ================================
-       MOBILE
-       ================================ */
-
-    @media (max-width: 720px) {
-
-      .wrap {
-        padding: 12px 10px 35px;
+    @media (max-width: 768px) {
+      .container {
+        width: min(100% - 20px, 1100px);
+        margin: 20px auto;
       }
 
-      .hero {
-        padding: 15px;
-        border-radius: 20px;
+      .header {
+        padding: 24px 20px;
       }
 
-      .brand {
-        gap: 10px;
+      .header h1 {
+        font-size: 22px;
       }
 
-      .logo {
-        width: 68px;
-        height: 68px;
+      .card {
+        padding: 18px;
       }
 
-      .logo2 {
-        width: 57px;
-        height: 57px;
-      }
-
-      h1 {
-        font-size: 20px;
-      }
-
-      .subtitle {
-        font-size: 11px;
-      }
-
-      .grid,
+      .form-grid,
       .activity-grid {
         grid-template-columns: 1fr;
       }
 
-      .activity-grid .wide {
-        grid-column: span 1;
+      .field.full,
+      .activity-grid .full {
+        grid-column: auto;
       }
 
-      .card {
-        padding: 14px;
-        border-radius: 18px;
+      .submit-area {
+        flex-direction: column;
+        align-items: stretch;
       }
 
-      .section-title {
-        align-items: flex-start;
-      }
-
-      .section-title button {
-        white-space: nowrap;
-      }
-
-      .actions button {
+      .submit-btn {
         width: 100%;
-      }
-    }
-
-    /* ================================
-       ANIMATIONS
-       ================================ */
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
       }
     }
   </style>
@@ -601,190 +358,104 @@
 
 <body>
 
-<div class="wrap">
+<div class="container">
 
-  <!-- ================================
-       HEADER
-       ================================ -->
-
-  <header class="hero">
-
-    <div class="brand">
-
-      <img
-        class="logo"
-        src="./logo.png"
-        alt="لوگوی سپهر"
-        onerror="this.style.display='none'"
-      >
-
-      <div style="text-align:center">
-
-        <h1>
-          گزارش وضعیت فعالیت روزانه
-        </h1>
-
-        <div class="subtitle">
-          سپهر | ثبت دقیق فعالیت‌های انجام‌شده
-        </div>
-
-      </div>
-
-      <img
-        class="logo logo2"
-        src="./logo2.png"
-        alt="لوگوی سپهر"
-        onerror="this.style.display='none'"
-      >
-
-    </div>
-
-    <div class="notice">
-
-      لطفاً
-      <b>
-        فعالیت‌های انجام‌شده در روز جاری را
-        به‌صورت دقیق، کامل و به ترتیب زمانی
-      </b>
-      ثبت نمایید.
-
-      <br>
-
-      <b>
-        توجه:
-      </b>
-
-      عدم ثبت این فرم به منزله عدم انجام فعالیت
-      در روز جاری تلقی خواهد شد.
-
-    </div>
-
+  <header class="header">
+    <h1>گزارش وضعیت فعالیت روزانه</h1>
+    <p>سپهر | ثبت دقیق فعالیت‌های انجام‌شده</p>
+    <div class="gold-line"></div>
   </header>
 
+  <form id="reportForm">
 
-  <!-- ================================
-       FORM
-       ================================ -->
-
-  <form
-    id="reportForm"
-    novalidate
-  >
-
-    <!-- EMPLOYEE -->
-
+    <!-- اطلاعات پایه -->
     <section class="card">
 
-      <div class="grid">
+      <h2 class="section-title">
+        <span>۱</span>
+        اطلاعات پایه
+      </h2>
+
+      <div class="form-grid">
 
         <div class="field">
-
           <label for="unit">
-            واحد / دپارتمان *
+            واحد
           </label>
 
-          <select
-            id="unit"
-            required
-          >
-
-            <option value="">
-              انتخاب واحد...
-            </option>
-
-            <option value="0">
-              مارکتینگ
-            </option>
-
-            <option value="1">
-              مالی
-            </option>
-
-            <option value="2">
-              حقوقی
-            </option>
-
-            <option value="3">
-              دفتر مدیر عامل
-            </option>
-
-            <option value="4">
-              منابع انسانی
-            </option>
-
+          <select id="unit" required>
+            <option value="">انتخاب واحد</option>
+            <option value="0">مارکتینگ</option>
+            <option value="1">مالی</option>
+            <option value="2">حقوقی</option>
+            <option value="3">دفتر مدیر عامل</option>
+            <option value="4">منابع انسانی</option>
           </select>
-
         </div>
 
-
         <div class="field">
-
           <label for="employee">
-            نام و نام خانوادگی *
+            نام و نام خانوادگی
           </label>
 
           <input
+            type="text"
             id="employee"
-            required
             placeholder="نام و نام خانوادگی"
             autocomplete="name"
-          >
-
+            required
+          />
         </div>
 
       </div>
+    </section>
+
+
+    <!-- فعالیت ها -->
+    <section class="card">
+
+      <h2 class="section-title">
+        <span>۲</span>
+        فعالیت‌های انجام‌شده
+      </h2>
+
+      <div id="activities" class="activities"></div>
+
+      <button
+        type="button"
+        class="add-btn"
+        id="addActivityBtn"
+      >
+        + افزودن فعالیت جدید
+      </button>
 
     </section>
 
 
-    <!-- ACTIVITIES -->
-
+    <!-- ارسال -->
     <section class="card">
 
-      <div class="section-title">
+      <div id="statusMessage" class="status-message"></div>
 
-        <h2>
-          گزارش وضعیت فعالیت‌ها
-        </h2>
+      <div class="submit-area">
 
         <button
-          type="button"
-          class="secondary"
-          id="addBtn"
-        >
-          ＋ افزودن فعالیت
-        </button>
-
-      </div>
-
-
-      <div id="activities"></div>
-
-
-      <div class="actions">
-
-        <button
-          class="primary"
-          id="submitBtn"
           type="submit"
+          class="submit-btn"
+          id="submitBtn"
         >
-          ثبت گزارش روزانه
+          ثبت گزارش
         </button>
 
-      </div>
-
-
-      <div id="message"></div>
-
-
-      <div class="api-status">
-        <span class="api-dot"></span>
-        اتصال فرم به سامانه ثبت گزارش سپهر
       </div>
 
     </section>
 
   </form>
+
+  <div class="footer">
+    سامانه گزارش وضعیت فعالیت روزانه | سپهر
+  </div>
 
 </div>
 
@@ -792,66 +463,44 @@
 <script>
 
 /* =========================================================
-   CONFIGURATION
+   GOOGLE APPS SCRIPT
    ========================================================= */
 
-/*
- * Google Apps Script Web App
- *
- * این URL باید همان Deployment فعلی Code.gs باشد.
- */
-
 const GOOGLE_APPS_SCRIPT_URL =
-  'https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnR_3bfZXELjC9Y7xiK0ks2fEFEAyTbKbuFMvngwhXmJJ79y9sjRwXNdFChGLm2bqIuavyTcdzq02Sxx6krLeCTFwLHKbX6w7xbwOEGhP7F_90rxOvzfe5VQe2RKsXqW4Aqc8yr36PlglqO-3Jwx2bJx_-czv-Bmw9XvTJvSn9znoAm04_BaBr3szgMviCxjnLP6sK-1wN9UprqYdg3-oY7ZunbraTBHclNigA_9hB5V8w16ON4yblUZpV6SxP_X4C1u-2AlGASOMGGfaDbvUFojbzlV2Q&lib=MzVp7YMixE1Vxvd7O7FLPJIUYlFQAuFZV';
-
-
-/*
- * نسخه Frontend
- */
-
-const FRONTEND_VERSION = '12.0.0';
+  'https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnS1vQbr1tvw70IJToX2Vjo1lyxTWib2xJ9qxAp1VrX11A5QopzbzWWRLKMouLkYuHQ3A-D0ftoAln2fuNnzR7Hqk8vlMzGJ0jB4I5T6r6c0DdD3VhCcNGBM0snXb9O2VuMTA2cKgq0RWjSuPJWBRm9jXw_23A1kRoKUZA_-SmKJOXkSvuH6_YkY7moZMlDZDuMOEwGFXtcMlyNRzVXaScTNx4fIaXyqh7cxhaJvfIzkiWShDtTLPeveYBoD9cRGxBSi8DCuolvZFLlOu3r3_J4BtP4_1g&lib=MzVp7YMixE1Vxvd7O7FLPJIUYlFQAuFZV';
 
 
 /* =========================================================
-   DOM
+   UNIT NAMES
    ========================================================= */
 
-const activitiesContainer =
-  document.getElementById('activities');
+const UNIT_NAMES = [
+  'مارکتینگ',
+  'مالی',
+  'حقوقی',
+  'دفتر مدیر عامل',
+  'منابع انسانی'
+];
 
-const form =
-  document.getElementById('reportForm');
 
-const messageBox =
-  document.getElementById('message');
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
 
-const submitBtn =
-  document.getElementById('submitBtn');
-
-const addBtn =
-  document.getElementById('addBtn');
-
-const unitInput =
-  document.getElementById('unit');
-
-const employeeInput =
-  document.getElementById('employee');
+const reportForm = document.getElementById('reportForm');
+const activitiesContainer = document.getElementById('activities');
+const addActivityBtn = document.getElementById('addActivityBtn');
+const submitBtn = document.getElementById('submitBtn');
+const statusMessage = document.getElementById('statusMessage');
 
 
 /* =========================================================
    JALALI DATE
    ========================================================= */
 
-function pad(number) {
-
-  return String(number).padStart(2, '0');
-
-}
-
-
 function gregorianToJalali(gy, gm, gd) {
 
-  const gdm = [
+  const g_d_m = [
     0,
     31,
     59,
@@ -866,158 +515,125 @@ function gregorianToJalali(gy, gm, gd) {
     334
   ];
 
-  let gy2 =
-    gm > 2
-      ? gy + 1
-      : gy;
+  let jy;
+
+  if (gy > 1600) {
+    jy = 979;
+    gy -= 1600;
+  } else {
+    jy = 0;
+    gy -= 621;
+  }
+
+  const gy2 = gm > 2 ? gy + 1 : gy;
 
   let days =
-    355666 +
     365 * gy +
     Math.floor((gy2 + 3) / 4) -
     Math.floor((gy2 + 99) / 100) +
-    Math.floor((gy2 + 399) / 400) +
+    Math.floor((gy2 + 399) / 400) -
+    80 +
     gd +
-    gdm[gm - 1];
+    g_d_m[gm - 1];
 
-  let jy =
-    -1595 +
-    33 * Math.floor(days / 12053);
+  jy += 33 * Math.floor(days / 12053);
 
   days %= 12053;
 
-  jy +=
-    4 * Math.floor(days / 1461);
+  jy += 4 * Math.floor(days / 1461);
 
   days %= 1461;
 
   if (days > 365) {
-
-    jy +=
-      Math.floor((days - 1) / 365);
-
-    days =
-      (days - 1) % 365;
-
+    jy += Math.floor((days - 1) / 365);
+    days = (days - 1) % 365;
   }
 
-  const jm =
-    days < 186
-      ? 1 + Math.floor(days / 31)
-      : 7 + Math.floor((days - 186) / 30);
+  let jm;
+
+  if (days < 186) {
+    jm = 1 + Math.floor(days / 31);
+  } else {
+    jm = 7 + Math.floor((days - 186) / 30);
+  }
 
   const jd =
     1 +
-    (
-      days < 186
-        ? days % 31
-        : (days - 186) % 30
-    );
+    (days < 186
+      ? days % 31
+      : (days - 186) % 30);
 
-  return `${jy}/${pad(jm)}/${pad(jd)}`;
-
+  return [
+    jy,
+    String(jm).padStart(2, '0'),
+    String(jd).padStart(2, '0')
+  ].join('/');
 }
 
 
 function todayJalali() {
 
-  const now =
-    new Date();
+  const now = new Date();
 
   return gregorianToJalali(
     now.getFullYear(),
     now.getMonth() + 1,
     now.getDate()
   );
-
 }
 
 
 /* =========================================================
-   MESSAGE
+   STATUS
    ========================================================= */
 
-function showMessage(text, type = 'err') {
+function showStatus(message, type) {
 
-  messageBox.textContent =
-    text;
+  statusMessage.textContent = message;
 
-  messageBox.className =
-    '';
-
-  messageBox.classList.add(type);
-
-  messageBox.style.display =
-    'block';
-
+  statusMessage.className =
+    'status-message ' + type;
 }
 
 
-function hideMessage() {
+function clearStatus() {
 
-  messageBox.textContent =
-    '';
+  statusMessage.textContent = '';
 
-  messageBox.className =
-    '';
-
-  messageBox.style.display =
-    'none';
-
+  statusMessage.className =
+    'status-message';
 }
 
 
 /* =========================================================
-   ACTIVITY NUMBER
+   ACTIVITY
    ========================================================= */
 
-function updateActivityNumbers() {
-
-  const cards =
-    document.querySelectorAll('.activity');
-
-  cards.forEach(
-    function(card, index) {
-
-      const badge =
-        card.querySelector('.badge');
-
-      if (badge) {
-
-        badge.textContent =
-          `فعالیت ${index + 1}`;
-
-      }
-
-    }
-  );
-
-}
+let activityCounter = 0;
 
 
-/* =========================================================
-   ADD ACTIVITY
-   ========================================================= */
+function createActivity() {
 
-function addActivity() {
+  activityCounter++;
 
-  const activity =
-    document.createElement('div');
+  const activity = document.createElement('div');
 
-  activity.className =
-    'activity';
+  activity.className = 'activity';
+
+  activity.dataset.id = activityCounter;
 
   activity.innerHTML = `
 
-    <div class="activity-head">
+    <div class="activity-header">
 
-      <span class="badge">
-        فعالیت 1
-      </span>
+      <div class="activity-number">
+        فعالیت شماره ${activityCounter}
+      </div>
 
       <button
         type="button"
-        class="danger remove"
+        class="remove-btn"
+        onclick="removeActivity(this)"
       >
         حذف
       </button>
@@ -1027,39 +643,31 @@ function addActivity() {
 
     <div class="activity-grid">
 
-
-      <!-- DESCRIPTION -->
-
-      <div class="field wide">
+      <div class="field full">
 
         <label>
-          شرح فعالیت / پروژه *
+          شرح فعالیت
         </label>
 
         <textarea
           class="description"
+          placeholder="شرح دقیق فعالیت انجام‌شده..."
           required
-          placeholder="فعالیت انجام‌شده را دقیق و به ترتیب زمانی بنویسید."
         ></textarea>
 
       </div>
 
 
-      <!-- STATUS -->
-
       <div class="field">
 
         <label>
-          وضعیت *
+          وضعیت
         </label>
 
-        <select
-          class="status"
-          required
-        >
+        <select class="status" required>
 
           <option value="">
-            انتخاب...
+            انتخاب وضعیت
           </option>
 
           <option value="انجام شد">
@@ -1083,99 +691,95 @@ function addActivity() {
       </div>
 
 
-      <!-- PROGRESS -->
-
       <div class="field">
 
         <label>
-          درصد پیشرفت *
+          درصد پیشرفت
         </label>
 
-        <input
-          class="progress"
-          type="number"
-          min="0"
-          max="100"
-          step="1"
-          value="0"
-          required
-        >
+        <div class="progress-wrapper">
+
+          <input
+            type="range"
+            class="progress"
+            min="0"
+            max="100"
+            step="5"
+            value="0"
+          />
+
+          <span class="progress-value">
+            0%
+          </span>
+
+        </div>
 
       </div>
 
 
-      <!-- DATE -->
-
       <div class="field">
 
         <label>
-          تاریخ *
+          تاریخ فعالیت
         </label>
 
         <input
-          class="date"
+          type="text"
+          class="activity-date"
           value="${todayJalali()}"
-          required
-          inputmode="numeric"
           placeholder="1405/06/29"
-        >
+          required
+        />
 
       </div>
 
 
-      <!-- DOCUMENT -->
-
       <div class="field">
 
         <label>
-          مبلغ / سند مرتبط
+          مبلغ و سند مرتبط
         </label>
 
         <input
+          type="text"
           class="document"
-          placeholder="اختیاری"
-        >
+          placeholder="در صورت وجود"
+        />
 
       </div>
 
 
-      <!-- RESPONSIBLE -->
-
       <div class="field">
 
         <label>
-          مسئول *
+          مسئول
         </label>
 
         <input
+          type="text"
           class="responsible"
-          required
-          placeholder="نام مسئول"
-        >
+          placeholder="مسئول انجام یا پیگیری"
+        />
 
       </div>
 
-
-      <!-- NEXT ACTION -->
 
       <div class="field">
 
         <label>
-          اقدام بعدی *
+          اقدام بعدی
         </label>
 
         <input
-          class="nextAction"
-          required
+          type="text"
+          class="next-action"
           placeholder="اقدام بعدی"
-        >
+        />
 
       </div>
 
 
-      <!-- NOTES -->
-
-      <div class="field wide">
+      <div class="field full">
 
         <label>
           توضیحات و موانع
@@ -1183,57 +787,32 @@ function addActivity() {
 
         <textarea
           class="notes"
-          placeholder="در صورت توقف یا انتظار تأیید، توضیح مانع یا وضعیت را وارد کنید."
+          placeholder="در صورت توقف یا انتظار تأیید، توضیحات و مانع را وارد کنید..."
         ></textarea>
 
       </div>
-
 
     </div>
   `;
 
 
-  activitiesContainer.appendChild(
-    activity
-  );
+  activitiesContainer.appendChild(activity);
 
 
-  const removeButton =
-    activity.querySelector('.remove');
+  const progress =
+    activity.querySelector('.progress');
+
+  const progressValue =
+    activity.querySelector('.progress-value');
 
 
-  removeButton.addEventListener(
-    'click',
-    function() {
+  progress.addEventListener('input', function () {
 
-      const count =
-        activitiesContainer.children.length;
+    progressValue.textContent =
+      this.value + '%';
 
-      if (count <= 1) {
+  });
 
-        showMessage(
-          'حداقل یک فعالیت باید ثبت شود.',
-          'err'
-        );
-
-        return;
-
-      }
-
-      activity.remove();
-
-      updateActivityNumbers();
-
-      hideMessage();
-
-    }
-  );
-
-
-  /*
-   * اگر وضعیت متوقف یا در انتظار تأیید شد،
-   * توضیحات به صورت بصری مشخص می‌شود.
-   */
 
   const status =
     activity.querySelector('.status');
@@ -1241,224 +820,186 @@ function addActivity() {
   const notes =
     activity.querySelector('.notes');
 
-  status.addEventListener(
-    'change',
-    function() {
 
-      const requiresNotes =
-        status.value === 'متوقف شده' ||
-        status.value === 'در انتظار تأیید';
+  status.addEventListener('change', function () {
 
-      if (requiresNotes) {
+    if (
+      this.value === 'متوقف شده' ||
+      this.value === 'در انتظار تأیید'
+    ) {
 
-        notes.style.borderColor =
-          '#b8872f';
+      notes.required = true;
 
-        notes.placeholder =
-          'برای این وضعیت، توضیح مانع یا دلیل انتظار تأیید الزامی است.';
+      notes.placeholder =
+        'برای این وضعیت، توضیحات و مانع الزامی است...';
 
-      } else {
+    } else {
 
-        notes.style.borderColor =
-          '';
+      notes.required = false;
 
-        notes.placeholder =
-          'در صورت توقف یا انتظار تأیید، توضیح مانع یا وضعیت را وارد کنید.';
-
-      }
+      notes.placeholder =
+        'در صورت وجود، توضیحات و موانع را وارد کنید...';
 
     }
-  );
 
-
-  updateActivityNumbers();
+  });
 
 }
+
+
+/* =========================================================
+   REMOVE ACTIVITY
+   ========================================================= */
+
+function removeActivity(button) {
+
+  const activity =
+    button.closest('.activity');
+
+  if (!activity) return;
+
+  activity.remove();
+
+  renumberActivities();
+}
+
+
+function renumberActivities() {
+
+  const activities =
+    document.querySelectorAll('.activity');
+
+  activities.forEach((activity, index) => {
+
+    const title =
+      activity.querySelector('.activity-number');
+
+    if (title) {
+
+      title.textContent =
+        `فعالیت شماره ${index + 1}`;
+
+    }
+
+  });
+
+}
+
+
+/* =========================================================
+   ADD ACTIVITY
+   ========================================================= */
+
+addActivityBtn.addEventListener(
+  'click',
+  createActivity
+);
 
 
 /* =========================================================
    INITIAL ACTIVITY
    ========================================================= */
 
-addActivity();
+createActivity();
 
 
 /* =========================================================
-   ADD BUTTON
+   VALIDATE
    ========================================================= */
 
-addBtn.addEventListener(
-  'click',
-  function() {
+function validateForm() {
 
-    addActivity();
+  const unit =
+    document.getElementById('unit').value;
 
-    const cards =
-      document.querySelectorAll('.activity');
+  const employee =
+    document.getElementById('employee').value.trim();
 
-    const last =
-      cards[cards.length - 1];
 
-    if (last) {
+  if (unit === '') {
 
-      last.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-      });
+    showStatus(
+      'لطفاً واحد را انتخاب کنید.',
+      'error'
+    );
 
-    }
+    document.getElementById('unit').focus();
 
+    return false;
   }
-);
 
 
-/* =========================================================
-   COLLECT ACTIVITY
-   ========================================================= */
+  if (!employee) {
 
-function collectActivities() {
+    showStatus(
+      'لطفاً نام و نام خانوادگی را وارد کنید.',
+      'error'
+    );
 
-  const cards =
-    [
-      ...document.querySelectorAll('.activity')
-    ];
+    document.getElementById('employee').focus();
 
-  const result = [];
+    return false;
+  }
 
 
-  for (
-    let index = 0;
-    index < cards.length;
-    index++
-  ) {
+  const activities =
+    document.querySelectorAll('.activity');
 
-    const card =
-      cards[index];
 
+  if (activities.length === 0) {
+
+    showStatus(
+      'حداقل یک فعالیت باید ثبت شود.',
+      'error'
+    );
+
+    return false;
+  }
+
+
+  for (let i = 0; i < activities.length; i++) {
+
+    const activity = activities[i];
 
     const description =
-      card
-        .querySelector('.description')
-        .value
-        .trim();
-
+      activity.querySelector('.description').value.trim();
 
     const status =
-      card
-        .querySelector('.status')
-        .value;
-
-
-    const progressValue =
-      card
-        .querySelector('.progress')
-        .value;
-
-
-    const date =
-      card
-        .querySelector('.date')
-        .value
-        .trim();
-
-
-    const documentValue =
-      card
-        .querySelector('.document')
-        .value
-        .trim();
-
-
-    const responsible =
-      card
-        .querySelector('.responsible')
-        .value
-        .trim();
-
-
-    const nextAction =
-      card
-        .querySelector('.nextAction')
-        .value
-        .trim();
-
+      activity.querySelector('.status').value;
 
     const notes =
-      card
-        .querySelector('.notes')
-        .value
-        .trim();
+      activity.querySelector('.notes').value.trim();
 
-
-    /*
-     * اعتبارسنجی اختصاصی
-     */
 
     if (!description) {
 
-      throw new Error(
-        `شرح فعالیت ${index + 1} وارد نشده است.`
+      showStatus(
+        `شرح فعالیت شماره ${i + 1} را وارد کنید.`,
+        'error'
       );
 
+      activity
+        .querySelector('.description')
+        .focus();
+
+      return false;
     }
 
 
     if (!status) {
 
-      throw new Error(
-        `وضعیت فعالیت ${index + 1} انتخاب نشده است.`
+      showStatus(
+        `وضعیت فعالیت شماره ${i + 1} را انتخاب کنید.`,
+        'error'
       );
 
+      activity
+        .querySelector('.status')
+        .focus();
+
+      return false;
     }
 
-
-    const progress =
-      Number(progressValue);
-
-
-    if (
-      !Number.isFinite(progress) ||
-      progress < 0 ||
-      progress > 100
-    ) {
-
-      throw new Error(
-        `درصد پیشرفت فعالیت ${index + 1} باید بین ۰ تا ۱۰۰ باشد.`
-      );
-
-    }
-
-
-    if (!date) {
-
-      throw new Error(
-        `تاریخ فعالیت ${index + 1} وارد نشده است.`
-      );
-
-    }
-
-
-    if (!responsible) {
-
-      throw new Error(
-        `مسئول فعالیت ${index + 1} وارد نشده است.`
-      );
-
-    }
-
-
-    if (!nextAction) {
-
-      throw new Error(
-        `اقدام بعدی فعالیت ${index + 1} وارد نشده است.`
-      );
-
-    }
-
-
-    /*
-     * توضیحات برای وضعیت‌های خاص اجباری است.
-     */
 
     if (
       (
@@ -1468,50 +1009,22 @@ function collectActivities() {
       !notes
     ) {
 
-      throw new Error(
-        `برای فعالیت ${index + 1} با وضعیت «${status}»، توضیحات و موانع الزامی است.`
+      showStatus(
+        `برای فعالیت شماره ${i + 1}، توضیحات و موانع الزامی است.`,
+        'error'
       );
 
+      activity
+        .querySelector('.notes')
+        .focus();
+
+      return false;
     }
-
-
-    /*
-     * ساخت آبجکت دقیقاً مطابق Code.gs
-     */
-
-    result.push({
-
-      description:
-        description,
-
-      status:
-        status,
-
-      progress:
-        progress,
-
-      date:
-        date,
-
-      document:
-        documentValue,
-
-      responsible:
-        responsible,
-
-      nextAction:
-        nextAction,
-
-      notes:
-        notes
-
-    });
 
   }
 
 
-  return result;
-
+  return true;
 }
 
 
@@ -1521,101 +1034,91 @@ function collectActivities() {
 
 function buildPayload() {
 
-  const unitValue =
-    unitInput.value;
-
+  const unitIndex =
+    Number(
+      document.getElementById('unit').value
+    );
 
   const employee =
-    employeeInput.value.trim();
+    document
+      .getElementById('employee')
+      .value
+      .trim();
 
 
-  if (!unitValue) {
+  const activityElements =
+    document.querySelectorAll('.activity');
 
-    throw new Error(
-      'لطفاً واحد / دپارتمان را انتخاب کنید.'
+
+  const activities =
+    Array.from(activityElements).map(
+      activity => {
+
+        return {
+
+          description:
+            activity
+              .querySelector('.description')
+              .value
+              .trim(),
+
+          status:
+            activity
+              .querySelector('.status')
+              .value,
+
+          progress:
+            Number(
+              activity
+                .querySelector('.progress')
+                .value
+            ),
+
+          activityDate:
+            activity
+              .querySelector('.activity-date')
+              .value
+              .trim(),
+
+          document:
+            activity
+              .querySelector('.document')
+              .value
+              .trim(),
+
+          responsible:
+            activity
+              .querySelector('.responsible')
+              .value
+              .trim(),
+
+          nextAction:
+            activity
+              .querySelector('.next-action')
+              .value
+              .trim(),
+
+          notes:
+            activity
+              .querySelector('.notes')
+              .value
+              .trim()
+
+        };
+
+      }
     );
 
-  }
-
-
-  if (!employee) {
-
-    throw new Error(
-      'لطفاً نام و نام خانوادگی را وارد کنید.'
-    );
-
-  }
-
-
-  const unitIndex =
-    Number(unitValue);
-
-
-  if (
-    !Number.isInteger(unitIndex) ||
-    unitIndex < 0 ||
-    unitIndex > 4
-  ) {
-
-    throw new Error(
-      'واحد انتخاب‌شده معتبر نیست.'
-    );
-
-  }
-
-
-  const activityList =
-    collectActivities();
-
-
-  if (
-    activityList.length === 0
-  ) {
-
-    throw new Error(
-      'حداقل یک فعالیت باید ثبت شود.'
-    );
-
-  }
-
-
-  /*
-   * این دقیقاً همان ساختاری است
-   * که Code.gs انتظار دارد.
-   */
 
   return {
 
-    unitIndex:
-      unitIndex,
+    unitIndex,
 
-    employee:
-      employee,
+    employee,
 
-    activities:
-      activityList
+    activities
 
   };
-
-}
-
-
-/* =========================================================
-   RESET FORM
-   ========================================================= */
-
-function resetForm() {
-
-  unitInput.value =
-    '';
-
-  employeeInput.value =
-    '';
-
-  activitiesContainer.innerHTML =
-    '';
-
-  addActivity();
 
 }
 
@@ -1624,171 +1127,124 @@ function resetForm() {
    SUBMIT
    ========================================================= */
 
-form.addEventListener(
+reportForm.addEventListener(
   'submit',
   async function(event) {
 
     event.preventDefault();
 
+    clearStatus();
 
-    hideMessage();
 
-
-    /*
-     * اعتبارسنجی HTML
-     */
-
-    if (
-      !form.reportValidity()
-    ) {
+    if (!validateForm()) {
 
       return;
 
     }
 
 
-    let payload;
+    const data =
+      buildPayload();
 
 
-    /*
-     * ساخت Payload
-     */
-
-    try {
-
-      payload =
-        buildPayload();
-
-    } catch (error) {
-
-      showMessage(
-        error.message ||
-        'اطلاعات فرم کامل نیست.',
-        'err'
-      );
-
-      return;
-
-    }
+    console.log(
+      'SEPEHR REPORT PAYLOAD:',
+      data
+    );
 
 
-    /*
-     * جلوگیری از ارسال همزمان
-     */
+    submitBtn.disabled = true;
 
-    submitBtn.disabled =
-      true;
-
-    addBtn.disabled =
-      true;
+    submitBtn.textContent =
+      'در حال ارسال...';
 
 
-    submitBtn.innerHTML =
-      '<span class="spinner"></span>در حال ثبت گزارش...';
+    showStatus(
+      'در حال ارسال گزارش به سامانه سپهر...',
+      'loading'
+    );
 
 
     try {
 
       /*
-       * ===================================================
-       * POST TO GOOGLE APPS SCRIPT
-       * ===================================================
+       * IMPORTANT:
        *
-       * توجه:
+       * Google Apps Script
+       * با no-cors پاسخ قابل خواندن
+       * به JavaScript نمی‌دهد.
        *
-       * mode = no-cors
-       *
-       * باعث می‌شود مرورگر پاسخ Apps Script را
-       * در اختیار JavaScript قرار ندهد.
-       *
-       * اما POST به Web App ارسال می‌شود.
-       *
-       * Content-Type = text/plain
-       * عمداً استفاده شده تا preflight پیچیده CORS
-       * ایجاد نشود.
+       * اما درخواست POST ارسال می‌شود.
        */
 
       await fetch(
         GOOGLE_APPS_SCRIPT_URL,
         {
+          method: 'POST',
 
-          method:
-            'POST',
-
-          mode:
-            'no-cors',
+          mode: 'no-cors',
 
           headers: {
-
             'Content-Type':
               'text/plain;charset=UTF-8'
-
           },
 
           body:
-            JSON.stringify(payload)
-
+            JSON.stringify(data)
         }
       );
 
 
-      /*
-       * چون no-cors است، اینجا فقط می‌دانیم
-       * fetch بدون خطای شبکه Promise را کامل کرده است.
-       *
-       * پاسخ واقعی سرور قابل خواندن نیست.
-       */
+      console.log(
+        'SEPEHR REPORT: request sent'
+      );
 
-      showMessage(
-        `گزارش ${payload.activities.length} فعالیت با موفقیت برای سامانه ارسال شد.`,
-        'ok'
+
+      showStatus(
+        'گزارش با موفقیت ارسال شد.',
+        'success'
       );
 
 
       /*
-       * پاک کردن فرم
+       * فرم بعد از ارسال موفق ظاهری
+       * پاک می‌شود.
        */
 
-      resetForm();
+      document
+        .getElementById('employee')
+        .value = '';
 
+      document
+        .getElementById('unit')
+        .value = '';
 
-      /*
-       * رفتن به بالای صفحه
-       */
+      activitiesContainer.innerHTML = '';
 
-      window.scrollTo({
+      activityCounter = 0;
 
-        top: 0,
-
-        behavior: 'smooth'
-
-      });
+      createActivity();
 
 
     } catch (error) {
 
       console.error(
-        'SepehrReport Submit Error:',
+        'SEPEHR REPORT ERROR:',
         error
       );
 
 
-      showMessage(
-        'ارسال گزارش انجام نشد. اتصال اینترنت یا آدرس Google Apps Script را بررسی کنید.',
-        'err'
+      showStatus(
+        'ارسال گزارش انجام نشد. لطفاً اتصال اینترنت و آدرس API را بررسی کنید.',
+        'error'
       );
-
 
     } finally {
 
-      submitBtn.disabled =
-        false;
-
-      addBtn.disabled =
-        false;
+      submitBtn.disabled = false;
 
       submitBtn.textContent =
-        'ثبت گزارش روزانه';
+        'ثبت گزارش';
 
     }
 
@@ -1801,12 +1257,11 @@ form.addEventListener(
    ========================================================= */
 
 console.log(
-  'SepehrReport Frontend',
-  FRONTEND_VERSION
+  'SEPEHR REPORT APP LOADED'
 );
 
 console.log(
-  'Apps Script URL:',
+  'GOOGLE APPS SCRIPT URL:',
   GOOGLE_APPS_SCRIPT_URL
 );
 
